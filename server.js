@@ -71,7 +71,8 @@ app.post('/submit', (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT;
+const backendPort = process.env.PORT
+const PORT = backendPort;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`This is Dev`);

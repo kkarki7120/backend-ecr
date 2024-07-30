@@ -1,6 +1,12 @@
 #import node image
 FROM node:14-alpine
 
+# Define build-time argument
+ARG PORT
+
+# Set environment variable for the container
+ENV PORT=${PORT}
+
 #set working directory in the container
 WORKDIR /app
 
@@ -13,8 +19,6 @@ RUN npm install
 #copy the entire project
 COPY . .
 
-#expose on port
-EXPOSE 4000
 
 #command to run the application
 CMD [ "node","server.js" ]
