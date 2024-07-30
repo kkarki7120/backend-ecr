@@ -46,13 +46,15 @@ jobs:
           echo "BRANCH=${BRANCH}" >> $GITHUB_ENV
           
           if [ "$BRANCH" == "dev" ]; then
-            PORT=4000
-          elif [ "$BRANCH" == "qa" ]; then
             PORT=4001
-          elif [ "$BRANCH" == "stage" ]; then
+          elif [ "$BRANCH" == "qa" ]; then
             PORT=4002
-          else
+          elif [ "$BRANCH" == "production" ]; then
             PORT=4003
+          elif [ "$BRANCH" == "stage" ]; then
+            PORT=4004
+          else
+            PORT=4000
           fi
           echo "PORT=${PORT}" >> $GITHUB_ENV
           docker build --build-arg PORT=${PORT} -t kushal-backend-${{ github.ref_name }} .
