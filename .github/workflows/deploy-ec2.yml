@@ -42,16 +42,19 @@ jobs:
 
       - name: Build Docker image
         run: |
-
-          if [[ $GITHUB_REF == 'dev' ]]; then
+          BRANCH=${GITHUB_REF#refs/heads/}
+          echo "BRANCH=${BRANCH}" >> $GITHUB_ENV
+          
+          if [ "$BRANCH" == "dev" ]; then
             PORT=4000
-          elif [[ $GITHUB_REF == 'qa' ]]; then
+          elif [ "$BRANCH" == "qa" ]; then
             PORT=4001
-          elif [[ $GITHUB_REF == 'stage' ]]; then
+          elif [ "$BRANCH" == "stage" ]; then
             PORT=4002
           else
             PORT=4003
           fi
+          echo "PORT=${PORT}" >> $GITHUB_ENV
           docker build --build-arg PORT=${PORT} -t kushal-backend-${{ github.ref_name }} .
 
       - name: Tag Docker image
